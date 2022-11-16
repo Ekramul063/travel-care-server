@@ -15,19 +15,36 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run(){
     try{
-        const serverCollection = client.db('travel-care').collection('services');
-
+        const serviceCollection = client.db('travel-care').collection('services');
+        const reviewCollection = client.db('travel-care').collection('reviews');
+        //get all service
         app.get('/services',async(req,res)=>{
             const query = {};
-            const cursor = serverCollection.find(query);
+            const cursor = serviceCollection.find(query);
             const result = await cursor.toArray();
             res.send(result);
         })
+        //home page limited data  service
+        app.get('/home/services',async(req,res)=>{
+            const query = {};
+            const cursor = serviceCollection.find(query);
+            const result = await cursor.limit(3).toArray();
+            res.send(result);
+        })
+        //single service
         app.get('/services/:id',async(req,res)=>{
             const id = req.params.id;
             const query = {_id:ObjectId(id)};
-            const service = await serverCollection.findOne(query);
+            const service = await serviceCollection.findOne(query);
             res.send(service)
+        })
+        //add single review
+        
+        //add service
+        app.post('/services',async(req,res)=>{
+            const service = req.body;
+            const result = await serviceCollection.insertOne(service);
+            res.send(result);
         })
     }
     finally{}
