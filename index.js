@@ -17,7 +17,12 @@ async function run(){
     try{
         const serverCollection = client.db('travel-care').collection('services');
 
-       
+        app.get('/services',async(req,res)=>{
+            const query = {};
+            const cursor = serverCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
     }
     finally{}
 }
