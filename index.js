@@ -79,22 +79,19 @@ async function run(){
             const result = await serviceCollection.insertOne(service);
             res.send(result);
         })
-
-         //delete review
-        //  app.delete('/review/:id',async(req,res)=>{
-        //     const id = req.params.id;
-        //     const query ={_id:ObjectId(id)}
-        //     const result = await reviewCollection.deleteOne(query);
-        //     res.send(result);
-        // })
+       
+        //  delete review
+         app.delete('/reviews/:id',async(req,res)=>{
+            const id = req.params.id;
+            console.log(id)
+            const query ={_id:ObjectId(id)}
+            const result = await reviewCollection.deleteOne(query);
+            res.send(result);
+        })
     }
     finally{}
 }
 run().catch(console.dir);
-
-
-
-
 
 app.get('/',(req,res)=>{
     res.send('your Travel care server is running')
