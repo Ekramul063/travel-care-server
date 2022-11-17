@@ -55,6 +55,7 @@ async function run(){
         })
 
         // single person review
+
         app.get('/reviewsperson',async(req,res)=>{
             //console.log(req.query.email)
             let query= {email:req.query.email};
@@ -80,12 +81,12 @@ async function run(){
         })
 
          //delete review
-         app.delete('/review/:id',async(req,res)=>{
-            const id = req.params.id;
-            const query ={_id:ObjectId(id)}
-            const result = await reviewCollection.deleteOne(query);
-            res.send(result);
-        })
+        //  app.delete('/review/:id',async(req,res)=>{
+        //     const id = req.params.id;
+        //     const query ={_id:ObjectId(id)}
+        //     const result = await reviewCollection.deleteOne(query);
+        //     res.send(result);
+        // })
     }
     finally{}
 }
